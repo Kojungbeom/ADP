@@ -17,7 +17,7 @@ from scipy.io.wavfile import write
 
 BUFF_SIZE = 65536
 BREAK = False
-host_ip = '192.168.0.43'
+host_ip = '192.168.0.49'
 port = 15500
 message = b'Hello'
 FORMAT = pyaudio.paInt16
@@ -79,7 +79,7 @@ def audio_stream():
             #print(sound.shape)
             if ev.isSet():
                 q.put(sound[::downsample, :1]/10000)
-                q2.put(sound)
+                q2.put(sound[:, :1])
             #index += 1
         except:
             print("Break Loop")
