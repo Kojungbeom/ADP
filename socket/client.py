@@ -64,14 +64,14 @@ def audio_stream():
     while True:
         try:
             while len(data) < payload_size :
-                packet = client_socket.recv(4*CHUNK) # 4K
+                packet = client_socket.recv(CHUNK) # 4K
                 if not packet: break
                 data += packet
             packed_msg_size = data[:payload_size]
             data = data[payload_size:]
             msg_size = struct.unpack("Q", packed_msg_size)[0]
             while len(data) < msg_size:
-                data += client_socket.recv(4 * CHUNK) 
+                data += client_socket.recv(CHUNK) 
             frame_data = data[:msg_size]
             data  = data[msg_size:]
             frame = pickle.loads(frame_data)
